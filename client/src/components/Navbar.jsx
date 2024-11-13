@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import Logo from "../assets/icons/logo.svg";
 import Menu from "../assets/icons/menu.svg";
 import Cross from "../assets/icons/cross.svg";
@@ -33,9 +34,11 @@ const Navbar = () => {
               <p className="cursor-pointer hover:text-primary">Contact</p>
             </li>
             <li className="md:ml-auto">
-              <button className="border border-primary text-primary md:mt-0 px-5 py-2 rounded-md hover:bg-primary hover:text-white">
-                Login
-              </button>
+              <NavLink to="/login">
+                <button className="border border-primary text-primary md:mt-0 px-5 py-2 rounded-md hover:bg-primary hover:text-white">
+                  Login
+                </button>
+              </NavLink>
             </li>
           </ul>
         </div>

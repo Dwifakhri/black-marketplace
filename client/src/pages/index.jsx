@@ -25,9 +25,9 @@ function App() {
               Explore marketplace
             </button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-x-3">
-            <img className="w-auto" src={phone1} alt="up1" />
-            <img className="w-auto" src={phone2} alt="up2" />
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-x-3 img-prespective">
+            <img className="w-auto front" src={phone1} alt="up1" />
+            <img className="w-auto back" src={phone2} alt="up2" />
           </div>
         </section>
         <section className="mt-[5rem]">

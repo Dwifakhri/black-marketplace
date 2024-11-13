@@ -19,5 +19,104 @@ button:hover {
 
 .main-site {
   padding-top: 120px;
-  min-height: calc(100vh);
+  min-height: 100vh;
+}
+
+.img-container {
+  position: relative;
+  perspective: 1000;
+}
+
+/* .front {
+  z-index: 2;
+}
+
+.back {
+  z-index: 1;
+} */
+@media (min-width:1280px) {
+  .front {
+    animation: slidefront infinite 8s;
+  }
+  .back {
+    animation: slideback infinite 8s;
+  }
+}
+
+@keyframes slidefront {
+  0% {
+    transform: scale(1) translateZ(0) translateX(1.25em) rotateY(180deg);
+    z-index: 1;
+  }
+  12.5% {
+    transform: scale(1.2) translateZ(6.25em) translateX(4.375em);
+    z-index: 2;
+  }
+  25% {
+    transform: scale(1.2) translateZ(6.25em) translateX(4.375em);
+    z-index: 2;
+  }
+  37.5% {
+    transform: scale(1) translateZ(0) translateX(20em);
+    z-index: 0;
+  }
+  50% {
+    transform: scale(1) translateZ(0) translateX(20em);
+    z-index: 0;
+  }
+  62.5% {
+    transform: scale(0.8) translateZ(-6.25em) translateX(12.5em);
+    z-index: 1;
+  }
+  75% {
+    transform: scale(0.8) translateZ(-6.25em) translateX(12.5em);
+    z-index: 1;
+  }
+  87.5% {
+    transform: scale(1) translateZ(0) translateX(1.25em) rotateY(0);
+    z-index: 1;
+  }
+  100% {
+    transform: scale(1) translateZ(0) translateX(1.25em) rotateY(0);
+    z-index: 1;
+  }
+}
+
+@keyframes slideback {
+  0% {
+    transform: scale(1) translateZ(0) translateX(-1.25em) rotateY(-180deg);
+    z-index: 1;
+  }
+  12.5% {
+    transform: scale(0.8) translateZ(-6.25em) translateX(-12.5em);
+    z-index: 0;
+  }
+  25% {
+    transform: scale(0.8) translateZ(-6.25em) translateX(-12.5em);
+    z-index: 0;
+  }
+  37.5% {
+    transform: scale(1) translateZ(0) translateX(-20em);
+    z-index: 0;
+  }
+  50% {
+    transform: scale(1) translateZ(0) translateX(-20em);
+    z-index: 0;
+  }
+  62.5% {
+    transform: scale(1.2) translateZ(6.25em) translateX(-4.375em);
+    z-index: 2;
+  }
+  75% {
+    transform: scale(1.2) translateZ(6.25em) translateX(-4.375em);
+    z-index: 2;
+  }
+  87.5% {
+    transform: scale(1) translateZ(0) translateX(-1.25em);
+    z-index: 1;
+  }
+  100% {
+    transform: scale(1) translateZ(0) translateX(-1.25em);
+    z-index: 1;
+  }
 }
