@@ -1,22 +1,26 @@
 import React from "react";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import gadget from "../assets/images/gadget.png";
 import logo from "../assets/icons/logo-black.svg";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const [cookie, setCookie] = useCookies();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("user@gmail.com");
   const [password, setPassword] = useState("password");
 
-  const loginForm = () => {
+  const loginForm = async (e) => {
+    e.preventDefault();
     setLoading(true);
     const emailp = "user@gmail.com";
     const passwordp = "password";
     setTimeout(() => {
       if (email === emailp && password === passwordp) {
-        document.cookie = "auth=loggedIn";
+        setCookie("token", "eyBfhryt678", { secure: true });
         navigate("/");
       } else {
         setLoading(false);
@@ -29,9 +33,7 @@ const Login = () => {
       <div className="hidden md:flex bg-black items-center justify-center w-full h-full">
         <img src={gadget} alt="gadget" />
       </div>
-      <form
-        className="lg:min-w-[30rem]"
-        onSubmit={(e) => loginForm(e.preventDefault())}>
+      <form className="lg:min-w-[30rem]" onSubmit={loginForm}>
         <img src={logo} alt="logo" className="mb-5" />
         <div className="w-full min-w-[200px] mb-3">
           <label className="block mb-2 text-sm text-black font-semibold">
