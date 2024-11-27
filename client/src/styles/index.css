@@ -17,6 +17,10 @@ button:hover {
   opacity: 0.85;
 }
 
+button:disabled {
+  background: rgb(161, 161, 161);
+}
+
 .main-site {
   padding-top: 120px;
   min-height: 100vh;

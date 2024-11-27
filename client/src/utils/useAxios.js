@@ -1,28 +1,26 @@
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.BASE_API_URL;
+axios.defaults.baseURL = `http://localhost:8000/api`;
 
-const api = async (url, options) => {
+export const api = async (url, options) => {
   let config = {
     url,
-    options: {
-      ...options,
-      headers: {
-        "Content-Type": options.contentType
-          ? options.contentType
-          : "application/json",
-      },
+    method: options.method || "GET",
+    data: options.data,
+    headers: {
+      "Content-Type": options.contentType
+        ? options.contentType
+        : "application/json",
     },
   };
-
-  let response;
+  let result = {};
   try {
     const res = await axios(url, config);
-    response = res.data;
+    result.response = res.data;
+    result.status = 200;
   } catch (error) {
-    response = error;
+    result.response = error;
+    result.status = error?.response?.status ?? 500;
   }
-  return response;
+  return result;
 };
-
-export { api };

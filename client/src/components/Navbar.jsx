@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../assets/icons/logo.svg";
 import Menu from "../assets/icons/menu.svg";
 import Cross from "../assets/icons/cross.svg";
-import { useCookie } from "../utils/useCookie";
+import { useCookie, useLogout } from "../utils/useCookie";
 
 const Navbar = () => {
-  const { cookie, logOut } = useCookie();
-  const isLoggedIn = cookie.token === "eyBfhryt678";
+  const { logOut } = useLogout();
+  const { cookie } = useCookie();
   const [open, setOpen] = useState(false);
   const [isOpenDrop, setOpenDrop] = useState(false);
 
-  // const logOuts = () => {
-  //   console.log(logOut());
-  // };
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpenDrop(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="top-0 absolute w-full bg-black">
@@ -44,7 +55,7 @@ const Navbar = () => {
               <p className="cursor-pointer hover:text-primary">Contact</p>
             </li>
             <li className="md:ml-auto">
-              {isLoggedIn ? (
+              {cookie.token ? (
                 <div className="relative text-left">
                   <button
                     onClick={() => {
@@ -57,12 +68,14 @@ const Navbar = () => {
                     />
                   </button>
                   {isOpenDrop && (
-                    <div className="absolute left-0 md:right-0 md:left-auto mt-2 w-24 bg-black border border-gray-300 rounded-md shadow-lg z-100">
+                    <div
+                      ref={dropdownRef}
+                      className="absolute left-0 md:right-0 md:left-auto mt-2 w-24 bg-black border border-gray-300 rounded-md shadow-lg z-100">
                       <ul className="bg-black rounded-md">
-                        <li className="bg-black rounded-md">
-                          <button
-                            onClick={logOut}
-                            className="block px-4 py-2 text-sm text-white w-full rounded-md">
+                        <li
+                          className="bg-black rounded-md"
+                          onClick={() => logOut()}>
+                          <button className="block px-4 py-2 text-sm text-white w-full rounded-md">
                             Logout
                           </button>
                         </li>

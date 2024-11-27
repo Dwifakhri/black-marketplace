@@ -17,7 +17,7 @@ function App() {
         <section className="grid grid-cols-1 gap-y-5 lg:grid-cols-2 items-center">
           <div className="mt-3 md:mt-0">
             <h2 className="text-3xl mb-2">Elevate your</h2>
-            <h1 className="text-[2.6rem] lg:text-5xl font-medium">
+            <h1 className="text-[2.6rem] lg:text-5xl font-medium leading-5">
               Experience with <br />
               iPhone Luxury
             </h1>
