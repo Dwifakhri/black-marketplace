@@ -11,8 +11,8 @@ const Login = () => {
   const navigate = useNavigate();
   const { setCookie } = useCookie();
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("coba@mail.com");
-  const [password, setPassword] = useState("123123");
+  const [email, setEmail] = useState("fakhri@mail.com");
+  const [password, setPassword] = useState("password");
   const [error, setError] = useState("");
 
   const loginForm = async (e) => {
@@ -26,13 +26,13 @@ const Login = () => {
       },
     });
     if (result.status === 200) {
-      setCookie("token", result.response.jwt, {
+      setCookie("token", result.data.jwt, {
         secure: true,
         maxAge: 7 * 24 * 60 * 60,
       });
       navigate("/");
     } else {
-      setError(result?.response?.response?.data ?? "Internal server error");
+      setError(result.response.data);
     }
     setLoading(false);
   };

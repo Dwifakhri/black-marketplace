@@ -5,7 +5,11 @@ const { DataTypes } = Sequelize;
 const User = db.define(
   "users",
   {
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      validate: { isEmail: true },
+      unique: true,
+    },
     password: { type: DataTypes.STRING, allowNull: false },
     name: DataTypes.STRING,
     createdAt: {
@@ -22,6 +26,10 @@ const User = db.define(
 
 export default User;
 
-(async () => {
-  await db.sync();
+(async function () {
+  try {
+    await db.sync();
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
 })();

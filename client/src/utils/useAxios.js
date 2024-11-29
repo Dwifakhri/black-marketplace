@@ -13,14 +13,6 @@ export const api = async (url, options) => {
         : "application/json",
     },
   };
-  let result = {};
-  try {
-    const res = await axios(url, config);
-    result.response = res.data;
-    result.status = 200;
-  } catch (error) {
-    result.response = error;
-    result.status = error?.response?.status ?? 500;
-  }
+  const result = await axios(url, config);
   return result;
 };

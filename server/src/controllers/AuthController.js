@@ -11,12 +11,12 @@ export const authLogin = async (req, res) => {
   try {
     const user = await User.findOne({ where: { email: email } });
     if (!user) {
-      return res.status(400).json({ message: "Wrong email/password" });
+      return res.status(400).json({ message: "Wrong email or password" });
     }
     const match = await bcrypt.compare(req.body.password, user.password);
 
     if (!match) {
-      return res.status(400).json("Wrong email/password");
+      return res.status(400).json("Wrong email or password");
     }
 
     const response = user.get();
@@ -31,8 +31,41 @@ export const authLogin = async (req, res) => {
   }
 };
 
+export const authRegister = async (req, res) => {
+  const { email, name, password } = req.body;
+  if (!email || !name || !password) {
+    return res
+      .status(400)
+      .json({ message: "Email, name, and password are required" });
+  }
+
+  const exist = await User.findOne({ where: { email: email } });
+  if (exist) {
+    return res.status(400).json({ message: "Email is already exist" });
+  }
+
+  try {
+    const hashPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      email,
+      name,
+      password: hashPassword,
+    });
+
+    return res.status(201).json({
+      data: { ...(await user.toJSON()), password: undefined },
+      message: "Success create user",
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export const authMe = async (req, res) => {
-  const token = req.headers.authorization.slice(7);
+  const token = req.headers.authorization?.slice(7);
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ where: { id: payload.id } });
