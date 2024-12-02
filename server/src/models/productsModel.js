@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 
 const { DataTypes } = Sequelize;
 const Product = db.define(
-  "product",
+  "products",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,10 +14,12 @@ const Product = db.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       defaultValue: "",
     },
     description: {
       type: DataTypes.STRING,
+      allowNull: false,
       defaultValue: "",
     },
     price: {
@@ -27,7 +29,11 @@ const Product = db.define(
     },
     discount: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      defaultValue: 0,
+    },
+    totalPrice: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
       defaultValue: 0,
     },
     imageUrl: {
@@ -37,6 +43,8 @@ const Product = db.define(
   },
   { timestamps: true, freezeTableName: true }
 );
+
+export default Product;
 
 (async function () {
   try {

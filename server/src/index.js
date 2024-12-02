@@ -4,7 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 dotenv.config({ path: ".env.local" });
-import userRoute from "./routes/userRoute.js";
+import indexRoute from "./routes/index.js";
+
 const app = express();
 const server = http.createServer(app);
 
@@ -19,7 +20,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json("Welcome to back end server black market");
 });
-app.use(userRoute);
+indexRoute(app);
 
 server.listen(process.env.BASE_URL_PORT, process.env.BASE_URL_HOST, () => {
   console.log(`Listening app in port:${process.env.BASE_URL_PORT}`);
